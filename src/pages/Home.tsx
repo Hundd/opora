@@ -1,5 +1,7 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Disclaimer } from '../components/Disclaimer'
+import { baseSteps } from '../data/today'
+import { usePlan } from '../plan-context'
 
 const pillars = [
   {
@@ -29,6 +31,16 @@ const pillars = [
 ]
 
 export function Home() {
+  const navigate = useNavigate()
+  const { plan, weekMeta, start, day, dayInWeek } = usePlan()
+  const started = Boolean(plan && weekMeta)
+  const dayDone = started ? [day.base, day.walk, day.family].filter(Boolean).length : 0
+
+  function startAndGo() {
+    start()
+    navigate('/sogodni')
+  }
+
   return (
     <>
       <section className="hero">
@@ -41,12 +53,25 @@ export function Home() {
             легша вага, спокійніший дім.
           </p>
           <div className="row-actions">
-            <Link className="btn" to="/plan">
-              План на 12 тижнів
-            </Link>
-            <Link className="btn btn-ghost" to="/rukh">
-              Сьогодні 15 хвилин
-            </Link>
+            {started ? (
+              <>
+                <Link className="btn" to="/sogodni">
+                  Сьогодні · {dayDone}/3
+                </Link>
+                <Link className="btn btn-ghost" to="/plan">
+                  Тиждень {plan?.week}
+                </Link>
+              </>
+            ) : (
+              <>
+                <button type="button" className="btn" onClick={startAndGo}>
+                  Почати план
+                </button>
+                <Link className="btn btn-ghost" to="/sogodni">
+                  Сьогодні 15 хвилин
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </section>
@@ -117,44 +142,36 @@ export function Home() {
 
       <section className="section wrap">
         <div className="today">
-          <p className="kicker">Сьогодні</p>
-          <h2>П’ятнадцять хвилин, якщо більше не виходить.</h2>
+          <p className="kicker">
+            {started
+              ? `Тиждень ${plan?.week} · день ${dayInWeek} · ${weekMeta?.focus}`
+              : 'Сьогодні'}
+          </p>
+          <h2>
+            {started
+              ? dayDone === 3
+                ? 'День зібраний. Можна не додавати.'
+                : 'Три відмітки, якщо більше не виходить.'
+              : 'П’ятнадцять хвилин, якщо більше не виходить.'}
+          </h2>
           <ol>
-            <li>
-              <span className="step">1</span>
-              <span>
-                <strong>Хвилина дихання животом.</strong> Плечі важкі, видих довший за вдих.
-              </span>
-            </li>
-            <li>
-              <span className="step">2</span>
-              <span>
-                <strong>Вісім кішка–корова.</strong> Довжина хребта, шия не заломлюється вгору.
-              </span>
-            </li>
-            <li>
-              <span className="step">3</span>
-              <span>
-                <strong>Шість птах–собака на бік.</strong> Таз рівний, без гойдалки.
-              </span>
-            </li>
-            <li>
-              <span className="step">4</span>
-              <span>
-                <strong>Підборіддя назад і напіввис 20 секунд.</strong> Якщо турнік дратує шию —
-                лиши лише напіввис.
-              </span>
-            </li>
-            <li>
-              <span className="step">5</span>
-              <span>
-                <strong>Хода 20 хвилин</strong> — окремо, з дитиною, якщо виходить. Це вже повний день.
-              </span>
-            </li>
+            {baseSteps.map((step) => (
+              <li key={step.n}>
+                <span className="step">{step.n}</span>
+                <span>
+                  <strong>{step.title}.</strong> {step.text}
+                </span>
+              </li>
+            ))}
           </ol>
-          <Link className="btn" to="/rukh">
-            Усі вправи
-          </Link>
+          <div className="row-actions">
+            <Link className="btn" to="/sogodni">
+              Відкрити сьогодні
+            </Link>
+            <Link className="btn btn-ghost" to="/rukh">
+              Усі вправи
+            </Link>
+          </div>
         </div>
       </section>
 

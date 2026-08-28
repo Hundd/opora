@@ -20,6 +20,9 @@ export function Layout() {
           </Link>
           <span>38 років. Спина, тарілка, дитина.</span>
         </div>
+        <p className="install-hint">
+          На телефоні: Поділитися → На екран «Домівка». Після першого відкриття працює без мережі.
+        </p>
         <Disclaimer />
       </footer>
     </>

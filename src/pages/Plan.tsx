@@ -1,7 +1,18 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { WeekChecklist } from '../components/WeekChecklist'
+import { usePlan } from '../plan-context'
+import { formatUkDate } from '../storage'
 
 export function Plan() {
+  const navigate = useNavigate()
+  const { plan, weekMeta, dayInWeek, start, repeat, resetPlan } = usePlan()
+  const started = Boolean(plan && weekMeta)
+
+  function startAndGo() {
+    start()
+    navigate('/sogodni')
+  }
+
   return (
     <>
       <section className="page-hero wrap">
@@ -12,11 +23,44 @@ export function Plan() {
             Кожен тиждень — один фокус. Якщо захворів або дитина не спала — тиждень можна повторити.
             Після дванадцятого не «нова людина». Повторюєш рівень 2–3, поки вага доганяє.
           </p>
+          {started && plan && weekMeta ? (
+            <p className="lede">
+              Зараз: {plan.mode === 'cycle' ? 'цикл' : `тиждень ${plan.week}`}, «{weekMeta.title}»,
+              день {dayInWeek} з 7. Старт {formatUkDate(plan.startedOn)}.
+            </p>
+          ) : (
+            <div className="row-actions">
+              <button type="button" className="btn" onClick={startAndGo}>
+                Почати план сьогодні
+              </button>
+              <Link className="btn btn-ghost" to="/sogodni">
+                Спочатку сьогодні
+              </Link>
+            </div>
+          )}
         </div>
         <div className="photo">
           <img src="/images/spine.jpg" alt="Спокійний домашній простір для короткого тренування" />
         </div>
       </section>
+
+      {started && plan ? (
+        <section className="section wrap">
+          <div className="today">
+            <p className="kicker">{plan.mode === 'cycle' ? 'Цикл' : `Тиждень ${plan.week}`}</p>
+            <h2>{weekMeta?.title}. {weekMeta?.focus}.</h2>
+            <p className="lede">{weekMeta?.why}</p>
+            <div className="row-actions">
+              <Link className="btn" to="/sogodni">
+                Відкрити сьогодні
+              </Link>
+              <button type="button" className="btn btn-ghost" onClick={repeat}>
+                Повторити цей тиждень
+              </button>
+            </div>
+          </div>
+        </section>
+      ) : null}
 
       <section className="section wrap">
         <div className="cards">
@@ -43,23 +87,30 @@ export function Plan() {
       </section>
 
       <section className="section wrap">
-        <WeekChecklist />
+        <WeekChecklist key={plan?.week ?? 0} currentWeek={plan?.week ?? 0} />
+        {started ? (
+          <div className="row-actions">
+            <button type="button" className="btn btn-ghost" onClick={resetPlan}>
+              Скинути дату старту
+            </button>
+          </div>
+        ) : null}
       </section>
 
       <section className="section wrap">
         <div className="today">
           <p className="kicker">Не знаєш, з чого</p>
-          <h2>Відкрий перший тиждень і зроби базу сьогодні.</h2>
+          <h2>Зроби базу сьогодні. План підхопить сам.</h2>
           <p className="lede">
             Дихання, кішка–корова, птах–собака, підборіддя, напіввис. Потім хода. Цього досить, щоб
             вважати день виконаним.
           </p>
           <div className="row-actions">
-            <Link className="btn" to="/rukh">
-              Відкрити вправи
+            <Link className="btn" to="/sogodni">
+              Сьогодні
             </Link>
-            <Link className="btn btn-ghost" to="/hrebets">
-              Нагадати про спину
+            <Link className="btn btn-ghost" to="/rukh">
+              Відкрити вправи
             </Link>
           </div>
         </div>

@@ -1,4 +1,5 @@
 export const navLinks = [
+  { to: '/sogodni', label: 'Сьогодні' },
   { to: '/hrebets', label: 'Хребет' },
   { to: '/rukh', label: 'Рух' },
   { to: '/harchuvannya', label: 'Харчування' },

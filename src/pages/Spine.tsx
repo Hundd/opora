@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { DeskCard } from '../components/DeskCard'
 import { ExerciseCard } from '../components/ExerciseCard'
 import { exercises } from '../data/exercises'
 
@@ -106,6 +107,10 @@ export function Spine() {
             <ExerciseCard key={exercise.id} exercise={exercise} />
           ))}
         </div>
+      </section>
+
+      <section className="section wrap">
+        <DeskCard />
       </section>
 
       <section className="section wrap">

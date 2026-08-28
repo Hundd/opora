@@ -7,6 +7,7 @@ import { Movement } from './pages/Movement'
 import { Nutrition } from './pages/Nutrition'
 import { Plan } from './pages/Plan'
 import { Spine } from './pages/Spine'
+import { Today } from './pages/Today'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -23,6 +24,7 @@ export default function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
+          <Route path="/sogodni" element={<Today />} />
           <Route path="/hrebets" element={<Spine />} />
           <Route path="/rukh" element={<Movement />} />
           <Route path="/harchuvannya" element={<Nutrition />} />

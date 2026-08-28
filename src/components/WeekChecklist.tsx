@@ -1,20 +1,10 @@
 import { useMemo, useState } from 'react'
 import { weeks } from '../data/weeks'
+import { clearChecks, loadChecks, saveChecks } from '../storage'
 
-const KEY = 'opora-checks-v1'
-
-function load(): Record<string, boolean> {
-  try {
-    const raw = localStorage.getItem(KEY)
-    return raw ? (JSON.parse(raw) as Record<string, boolean>) : {}
-  } catch {
-    return {}
-  }
-}
-
-export function WeekChecklist() {
-  const [open, setOpen] = useState(1)
-  const [checks, setChecks] = useState<Record<string, boolean>>(load)
+export function WeekChecklist({ currentWeek = 1 }: { currentWeek?: number }) {
+  const [open, setOpen] = useState(currentWeek || 1)
+  const [checks, setChecks] = useState<Record<string, boolean>>(loadChecks)
 
   const total = weeks.reduce((n, week) => n + week.checks.length, 0)
   const done = useMemo(
@@ -25,13 +15,13 @@ export function WeekChecklist() {
   function toggle(id: string) {
     setChecks((prev) => {
       const next = { ...prev, [id]: !prev[id] }
-      localStorage.setItem(KEY, JSON.stringify(next))
+      saveChecks(next)
       return next
     })
   }
 
   function reset() {
-    localStorage.removeItem(KEY)
+    clearChecks()
     setChecks({})
   }
 
@@ -51,8 +41,9 @@ export function WeekChecklist() {
         {weeks.map((week) => {
           const weekDone = week.checks.filter((c) => checks[c.id]).length
           const isOpen = open === week.n
+          const isNow = currentWeek > 0 && week.n === currentWeek
           return (
-            <article className="week" key={week.n}>
+            <article className={`week${isNow ? ' current' : ''}`} key={week.n}>
               <button
                 type="button"
                 className="week-head"
@@ -65,6 +56,7 @@ export function WeekChecklist() {
                   <span className="muted">
                     {' '}
                     · {week.focus} · {weekDone}/{week.checks.length}
+                    {isNow ? ' · зараз' : ''}
                   </span>
                 </span>
                 <span aria-hidden="true">{isOpen ? '–' : '+'}</span>

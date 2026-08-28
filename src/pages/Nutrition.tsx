@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { GroceryList } from '../components/GroceryList'
 import { mealDays, plateParts, rules, weightNotes } from '../data/meals'
 
 export function Nutrition() {
@@ -87,6 +88,10 @@ export function Nutrition() {
             </article>
           ))}
         </div>
+      </section>
+
+      <section className="section wrap">
+        <GroceryList />
       </section>
 
       <section className="section wrap">

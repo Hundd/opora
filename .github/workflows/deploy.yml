@@ -50,6 +50,9 @@ jobs:
           aws s3 cp dist/index.html s3://opora.polchaninov.click/index.html \
             --cache-control "public,max-age=0,must-revalidate" \
             --content-type "text/html; charset=utf-8"
+          aws s3 cp dist/index.html s3://opora.polchaninov.click/404.html \
+            --cache-control "public,max-age=0,must-revalidate" \
+            --content-type "text/html; charset=utf-8"
 
       - name: Invalidate CloudFront cache
         run: aws cloudfront create-invalidation --distribution-id E136E23RX990B9 --paths "/*"

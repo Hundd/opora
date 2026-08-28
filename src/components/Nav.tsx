@@ -23,8 +23,8 @@ export function Nav() {
               {link.label}
             </NavLink>
           ))}
-          <Link to="/plan" className="btn" onClick={() => setOpen(false)}>
-            Почати з 15 хвилин
+          <Link to="/sogodni" className="btn" onClick={() => setOpen(false)}>
+            15 хвилин
           </Link>
         </nav>
         <button
