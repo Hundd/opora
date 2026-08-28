@@ -7,6 +7,7 @@
 ```bash
 npm install
 npm run dev
+npm test
 ```
 
 Сайт відкриється на [http://localhost:5173](http://localhost:5173). Чекліст 12 тижнів зберігається в браузері.

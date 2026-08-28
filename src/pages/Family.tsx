@@ -4,6 +4,7 @@ import {
   dayRhythm,
   familyPrinciples,
   partnerLines,
+  playGames,
   withChild,
 } from '../data/family'
 
@@ -80,6 +81,22 @@ export function Family() {
 
       <section className="section wrap">
         <div className="section-head">
+          <p className="kicker">Ігри, не тренування</p>
+          <h2>Шість способів рухатись разом. 2–40 хвилин.</h2>
+        </div>
+        <div className="cards">
+          {playGames.map((game) => (
+            <article className="card" key={game.title}>
+              <p className="kicker">{game.time}</p>
+              <h3>{game.title}</h3>
+              <p>{game.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="section wrap">
+        <div className="section-head">
           <p className="kicker">Мова в парі</p>
           <h2>Союз, не контроль талії.</h2>
         </div>
@@ -111,6 +128,9 @@ export function Family() {
         <div className="row-actions">
           <Link className="btn" to="/plan">
             Зібрати це в 12 тижнів
+          </Link>
+          <Link className="btn btn-ghost" to="/dlya-nyeyi">
+            Коротко для партнерки
           </Link>
         </div>
       </section>

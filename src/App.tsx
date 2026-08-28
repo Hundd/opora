@@ -5,6 +5,7 @@ import { Family } from './pages/Family'
 import { Home } from './pages/Home'
 import { Movement } from './pages/Movement'
 import { Nutrition } from './pages/Nutrition'
+import { Partner } from './pages/Partner'
 import { Plan } from './pages/Plan'
 import { Spine } from './pages/Spine'
 import { Today } from './pages/Today'
@@ -29,6 +30,7 @@ export default function App() {
           <Route path="/rukh" element={<Movement />} />
           <Route path="/harchuvannya" element={<Nutrition />} />
           <Route path="/simya" element={<Family />} />
+          <Route path="/dlya-nyeyi" element={<Partner />} />
           <Route path="/plan" element={<Plan />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>

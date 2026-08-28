@@ -72,6 +72,11 @@ export function Today() {
           <p className="muted">
             {weekMeta.level} · {weekMeta.focus} · старт {formatUkDate(plan.startedOn)}
           </p>
+          <div className="row-actions no-print">
+            <button type="button" className="btn btn-ghost" onClick={() => window.print()}>
+              Друкувати сьогодні
+            </button>
+          </div>
         </div>
         <div className="photo">
           <img src="/images/morning.jpg" alt="Коротка розминка на килимку вдома" />

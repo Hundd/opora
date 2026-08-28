@@ -57,6 +57,9 @@ export function Plan() {
               <button type="button" className="btn btn-ghost" onClick={repeat}>
                 Повторити цей тиждень
               </button>
+              <button type="button" className="btn btn-ghost no-print" onClick={() => window.print()}>
+                Друкувати тиждень
+              </button>
             </div>
           </div>
         </section>

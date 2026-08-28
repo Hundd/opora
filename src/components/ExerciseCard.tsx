@@ -1,8 +1,10 @@
 import type { Exercise } from '../data/exercises'
+import { ExerciseFigure } from './ExerciseFigure'
 
 export function ExerciseCard({ exercise }: { exercise: Exercise }) {
   return (
     <article className="exercise">
+      <ExerciseFigure id={exercise.id} />
       <div className="tags">
         <span className="tag">{exercise.time}</span>
         {exercise.tags.map((tag) => (
