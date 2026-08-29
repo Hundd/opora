@@ -69,7 +69,7 @@ export function Family() {
             <img src="/images/hero.jpg" alt="Прогулянка батька з дитиною в парку" />
           </div>
         </div>
-        <div className="cards" style={{ marginTop: 28 }}>
+        <div className="cards stack-lg">
           {withChild.map((item) => (
             <article className="card" key={item.title}>
               <h3>{item.title}</h3>
@@ -118,7 +118,7 @@ export function Family() {
 
       <section className="section wrap">
         <p className="quote">Впевненість — це рівна спина в дверях і голос, який не поспішає.</p>
-        <div className="cards" style={{ marginTop: 28 }}>
+        <div className="cards stack-lg">
           {confidenceNotes.map((note) => (
             <article className="card" key={note}>
               <p>{note}</p>

@@ -45,7 +45,7 @@ export function Nutrition() {
             <div className="plate-protein">Білок</div>
             <div className="plate-carb">Крупа</div>
           </div>
-          <div className="cards" style={{ gridTemplateColumns: '1fr' }}>
+          <div className="cards cards-one">
             {plateParts.map((part) => (
               <article className="card" key={part.id}>
                 <h3>

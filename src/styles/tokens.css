@@ -1,0 +1,19 @@
+:root {
+  --cream: #f6f1e8;
+  --cream-2: #efe6d6;
+  --ink: #1c1917;
+  --ink-soft: #4a433c;
+  --green: #2f4a3c;
+  --green-2: #3d5c4c;
+  --sage: #d7e3d4;
+  --sage-2: #c3d4bf;
+  --terra: #c46a3a;
+  --terra-2: #a8542c;
+  --paper: #fffcf7;
+  --line: rgba(28, 25, 23, 0.1);
+  --shadow: 0 18px 50px rgba(47, 74, 60, 0.1);
+  --radius: 22px;
+  --serif: 'Fraunces', 'Times New Roman', serif;
+  --sans: 'Manrope', system-ui, sans-serif;
+  --wrap: 1120px;
+}

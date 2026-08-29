@@ -118,12 +118,12 @@ export function Journal() {
         </div>
       </div>
 
-      <div className="cards" style={{ marginTop: 20 }}>
+      <div className="cards stack">
         <Sparkline values={painSeries} label="Біль · 14 днів" />
         <Sparkline values={weightSeries} label="Вага · тренд" unit=" кг" />
       </div>
 
-      {note ? <p className="cue" style={{ marginTop: 16 }}>{note}</p> : null}
+      {note ? <p className="cue stack-sm">{note}</p> : null}
 
       <div className="row-actions">
         <button type="button" className="btn btn-ghost" onClick={download}>

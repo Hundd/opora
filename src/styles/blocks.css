@@ -1,0 +1,181 @@
+.card,
+.pillar,
+.exercise,
+.level,
+.stat,
+.meal {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 22px 24px;
+  display: grid;
+  gap: 10px;
+}
+
+.cards,
+.pillars,
+.exercise-grid,
+.levels,
+.stats {
+  display: grid;
+  gap: 16px;
+}
+
+.cards,
+.exercise-grid {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.cards-one {
+  grid-template-columns: 1fr;
+}
+
+.pillars {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.levels,
+.stats {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.pillar {
+  min-height: 220px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pillar:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+
+.pillar .n,
+.protocol-step .n,
+.week-n,
+.stat .k {
+  font-family: var(--serif);
+}
+
+.pillar .n {
+  color: var(--terra);
+  font-size: 1.4rem;
+}
+
+.pillar h3 {
+  font-size: 1.35rem;
+}
+
+.pillar p,
+.card p {
+  color: var(--ink-soft);
+}
+
+.today {
+  background: var(--paper);
+  border-radius: 28px;
+  padding: 32px;
+  border: 1px solid var(--line);
+  display: grid;
+  gap: 18px;
+}
+
+.today ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 12px;
+}
+
+.today li {
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 12px;
+  align-items: start;
+}
+
+.today .step {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--sage);
+  color: var(--green);
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  background: var(--sage);
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 9px;
+  border-radius: 999px;
+}
+
+.cue {
+  background: var(--cream-2);
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-size: 0.92rem;
+}
+
+.check {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  background: var(--cream);
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+
+.check input {
+  margin-top: 4px;
+  accent-color: var(--green);
+  width: 18px;
+  height: 18px;
+}
+
+.check.done span {
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+.progress {
+  background: var(--sage);
+  border-radius: 999px;
+  height: 8px;
+  overflow: hidden;
+}
+
+.progress > span {
+  display: block;
+  height: 100%;
+  background: var(--green);
+}
+
+.avoid {
+  background: #f3e6dc;
+  border-radius: 24px;
+  padding: 28px;
+}
+
+.avoid ul {
+  margin: 12px 0 0;
+  padding-left: 18px;
+}
+
+.quote {
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-style: italic;
+  font-weight: 500;
+  max-width: 22ch;
+}
