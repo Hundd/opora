@@ -4,6 +4,7 @@ import { Journal } from '../components/Journal'
 import { dailyTasks, baseSteps } from '../data/today'
 import { usePlan } from '../plan-context'
 import { formatUkDate } from '../storage'
+import { cx, ui } from '../ui'
 
 export function Today() {
   const { plan, day, weekMeta, dayInWeek, start, repeat, toggleDay } = usePlan()
@@ -11,35 +12,35 @@ export function Today() {
   if (!plan || !weekMeta) {
     return (
       <>
-        <section className="page-hero wrap">
+        <section className={cx(ui.pageHero, ui.wrap)}>
           <div>
-            <p className="kicker">Сьогодні</p>
-            <h1 className="display">П’ятнадцять хвилин, якщо більше не виходить.</h1>
-            <p className="lede">
+            <p className={ui.kicker}>Сьогодні</p>
+            <h1 className={ui.display}>П’ятнадцять хвилин, якщо більше не виходить.</h1>
+            <p className={ui.lede}>
               План ще не початий. Можна просто зробити базу зараз — або зафіксувати старт 12 тижнів.
               Дата лишається в цьому браузері.
             </p>
-            <div className="row-actions">
-              <button type="button" className="btn" onClick={start}>
+            <div className={ui.rowActions}>
+              <button type="button" className={ui.btn} onClick={start}>
                 Почати план сьогодні
               </button>
-              <Link className="btn btn-ghost" to="/rukh">
+              <Link className={ui.btnGhost} to="/rukh">
                 Спочатку вправи
               </Link>
             </div>
           </div>
-          <div className="photo">
+          <div className={ui.photo}>
             <img src="/images/morning.jpg" alt="Коротка розминка на килимку вдома" />
           </div>
         </section>
-        <section className="section wrap">
-          <div className="today">
-            <p className="kicker">База</p>
+        <section className={cx(ui.section, ui.wrap)}>
+          <div className={ui.panel}>
+            <p className={ui.kicker}>База</p>
             <h2>Якщо старту ще немає — цього досить на сьогодні.</h2>
             <ol>
               {baseSteps.map((step) => (
                 <li key={step.n}>
-                  <span className="step">{step.n}</span>
+                  <span className={ui.step}>{step.n}</span>
                   <span>
                     <strong>{step.title}.</strong> {step.text}
                   </span>
@@ -48,7 +49,7 @@ export function Today() {
             </ol>
           </div>
         </section>
-        <section className="section wrap">
+        <section className={cx(ui.section, ui.wrap)}>
           <DeskCard />
         </section>
         <Journal />
@@ -62,41 +63,41 @@ export function Today() {
 
   return (
     <>
-      <section className="page-hero wrap">
+      <section className={cx(ui.pageHero, ui.wrap)}>
         <div>
-          <p className="kicker">
+          <p className={ui.kicker}>
             {cycle ? 'Цикл після 12 тижнів' : `Тиждень ${String(plan.week).padStart(2, '0')}`} · день {dayInWeek} з 7
           </p>
-          <h1 className="display">{weekMeta.title}</h1>
-          <p className="lede">{weekMeta.why}</p>
-          <p className="muted">
+          <h1 className={ui.display}>{weekMeta.title}</h1>
+          <p className={ui.lede}>{weekMeta.why}</p>
+          <p className={ui.muted}>
             {weekMeta.level} · {weekMeta.focus} · старт {formatUkDate(plan.startedOn)}
           </p>
-          <div className="row-actions no-print">
-            <button type="button" className="btn btn-ghost" onClick={() => window.print()}>
+          <div className={cx(ui.rowActions, ui.noPrint)}>
+            <button type="button" className={ui.btnGhost} onClick={() => window.print()}>
               Друкувати сьогодні
             </button>
           </div>
         </div>
-        <div className="photo">
+        <div className={ui.photo}>
           <img src="/images/morning.jpg" alt="Коротка розминка на килимку вдома" />
         </div>
       </section>
 
-      <section className="section wrap">
-        <div className="section-head">
-          <p className="kicker">Три відмітки</p>
+      <section className={cx(ui.section, ui.wrap)}>
+        <div className={ui.sectionHead}>
+          <p className={ui.kicker}>Три відмітки</p>
           <h2>
             {doneCount === 3 ? 'День зібраний.' : `${doneCount} з 3 на сьогодні.`}
           </h2>
-          <p className="lede">Не надолужуй учорашнє. Відміть те, що вже сталося.</p>
-          <div className="progress" aria-hidden="true">
+          <p className={ui.lede}>Не надолужуй учорашнє. Відміть те, що вже сталося.</p>
+          <div className={ui.progress} aria-hidden="true">
             <span style={{ width: `${(doneCount / 3) * 100}%` }} />
           </div>
         </div>
-        <div className="day-tasks">
+        <div className={ui.dayTasks}>
           {tasks.map((task) => (
-            <label className={`day-task${day[task.id] ? ' done' : ''}`} key={task.id}>
+            <label className={day[task.id] ? ui.dayTaskDone : ui.dayTask} key={task.id}>
               <input
                 type="checkbox"
                 checked={day[task.id]}
@@ -104,55 +105,55 @@ export function Today() {
               />
               <span>
                 <strong>{task.title}</strong>
-                <span className="muted">{task.detail}</span>
+                <span className={ui.muted}>{task.detail}</span>
               </span>
             </label>
           ))}
         </div>
       </section>
 
-      <section className="section wrap">
-        <div className="today">
-          <p className="kicker">База · 12–15 хвилин</p>
+      <section className={cx(ui.section, ui.wrap)}>
+        <div className={ui.panel}>
+          <p className={ui.kicker}>База · 12–15 хвилин</p>
           <h2>Порядок, якщо не хочеться думати.</h2>
           <ol>
             {baseSteps.map((step) => (
               <li key={step.n}>
-                <span className="step">{step.n}</span>
+                <span className={ui.step}>{step.n}</span>
                 <span>
                   <strong>{step.title}.</strong> {step.text}
                 </span>
               </li>
             ))}
           </ol>
-          <Link className="btn" to="/rukh">
+          <Link className={ui.btn} to="/rukh">
             Усі вправи
           </Link>
         </div>
       </section>
 
-      <section className="section wrap">
-        <div className="cards">
-          <article className="card">
+      <section className={cx(ui.section, ui.wrap)}>
+        <div className={ui.cards}>
+          <article className={ui.card}>
             <h3>Цей тиждень</h3>
             <p>
               {weekMeta.checks.length} кроки в чеклісті плану. Відмітки тижня — окремо від сьогоднішніх трьох.
             </p>
-            <div className="row-actions">
-              <Link className="btn btn-ghost" to="/plan">
+            <div className={ui.rowActions}>
+              <Link className={ui.btnGhost} to="/plan">
                 Відкрити план
               </Link>
             </div>
           </article>
-          <article className="card">
+          <article className={ui.card}>
             <h3>{cycle ? 'Цикл' : 'Дитина не спала?'}</h3>
             <p>
               {cycle
                 ? '12 тижнів пройдено. Лишаєш ходу, тарілку і ці 12 хвилин. Тиждень на карті не стрибає вперед.'
                 : 'Повторити тиждень — ще сім днів того самого фокуса. Календар плану просто розтягнеться.'}
             </p>
-            <div className="row-actions">
-              <button type="button" className="btn btn-ghost" onClick={repeat}>
+            <div className={ui.rowActions}>
+              <button type="button" className={ui.btnGhost} onClick={repeat}>
                 Повторити цей тиждень
               </button>
             </div>
@@ -160,7 +161,7 @@ export function Today() {
         </div>
       </section>
 
-      <section className="section wrap">
+      <section className={cx(ui.section, ui.wrap)}>
         <DeskCard />
       </section>
       <Journal />

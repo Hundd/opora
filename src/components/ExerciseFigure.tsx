@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { ui } from '../ui'
 
 const stroke = {
   fill: 'none',
@@ -13,7 +14,7 @@ function Head({ cx, cy }: { cx: number; cy: number }) {
 }
 
 function Caption({ children }: { children: string }) {
-  return <p className="figure-cue">{children}</p>
+  return <p className={ui.figureCue}>{children}</p>
 }
 
 const figures: Record<string, { view: string; drawing: ReactNode; cue: string }> = {
@@ -124,7 +125,7 @@ export function ExerciseFigure({ id }: { id: string }) {
   const fig = figures[id]
   if (!fig) return null
   return (
-    <div className="figure">
+    <div className={ui.figure}>
       <svg viewBox={fig.view} aria-hidden="true">
         {fig.drawing}
       </svg>

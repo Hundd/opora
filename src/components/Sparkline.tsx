@@ -1,3 +1,6 @@
+import { ui } from '../ui'
+import styles from './Sparkline.module.css'
+
 type Props = {
   values: (number | null)[]
   label: string
@@ -11,9 +14,9 @@ export function Sparkline({ values, label, unit = '' }: Props) {
 
   if (points.length < 2) {
     return (
-      <div className="spark">
-        <p className="kicker">{label}</p>
-        <p className="muted">Замало точок для лінії. Це нормально — не треба писати щодня.</p>
+      <div>
+        <p className={ui.kicker}>{label}</p>
+        <p className={ui.muted}>Замало точок для лінії. Це нормально — не треба писати щодня.</p>
       </div>
     )
   }
@@ -34,12 +37,12 @@ export function Sparkline({ values, label, unit = '' }: Props) {
     .join(' ')
 
   return (
-    <div className="spark">
-      <p className="kicker">{label}</p>
-      <svg viewBox={`0 0 ${w} ${h}`} className="spark-svg" role="img" aria-label={label}>
+    <div>
+      <p className={ui.kicker}>{label}</p>
+      <svg viewBox={`0 0 ${w} ${h}`} className={styles.svg} role="img" aria-label={label}>
         <path d={d} fill="none" stroke="#2F4A3C" strokeWidth="2.4" strokeLinecap="round" />
       </svg>
-      <p className="muted">
+      <p className={ui.muted}>
         {min.toFixed(min >= 20 ? 1 : 0)}
         {unit} → {max.toFixed(max >= 20 ? 1 : 0)}
         {unit}

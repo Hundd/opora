@@ -61,21 +61,4 @@ p {
   margin: 0;
 }
 
-.skip {
-  position: absolute;
-  left: -999px;
-  top: 8px;
-}
 
-.skip:focus {
-  left: 12px;
-  z-index: 80;
-  background: var(--ink);
-  color: var(--cream);
-  padding: 8px 14px;
-  border-radius: 999px;
-}
-
-.muted {
-  color: var(--ink-soft);
-}

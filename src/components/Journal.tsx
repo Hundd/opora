@@ -1,7 +1,9 @@
 import { useRef, useState, type FormEvent } from 'react'
 import { usePlan } from '../plan-context'
 import { exportBackup, getDay, importBackup, lastDays } from '../storage'
+import { cx, ui } from '../ui'
 import { Sparkline } from './Sparkline'
+import styles from './Journal.module.css'
 
 const painLabels = ['немає', 'ледь', 'трохи', 'середньо', 'сильний', 'дуже']
 
@@ -46,23 +48,23 @@ export function Journal() {
   }
 
   return (
-    <section className="section wrap">
-      <div className="section-head">
-        <p className="kicker">Тихий зошит</p>
+    <section className={cx(ui.section, ui.wrap)}>
+      <div className={ui.sectionHead}>
+        <p className={ui.kicker}>Тихий зошит</p>
         <h2>Три поля. Без суду за день.</h2>
-        <p className="lede">Біль — якщо згадав увечері. Хода — хвилини. Вага — раз на тиждень, вранці.</p>
+        <p className={ui.lede}>Біль — якщо згадав увечері. Хода — хвилини. Вага — раз на тиждень, вранці.</p>
       </div>
 
-      <div className="journal">
-        <div className="card">
+      <div className={styles.grid}>
+        <div className={ui.card}>
           <h3>Біль спини чи шиї</h3>
-          <p className="muted">0 — тихо. 5 — зупинись і не «перетерпи».</p>
-          <div className="pain-scale" role="group" aria-label="Оцінка болю">
+          <p className={ui.muted}>0 — тихо. 5 — зупинись і не «перетерпи».</p>
+          <div className={styles.pain} role="group" aria-label="Оцінка болю">
             {painLabels.map((label, n) => (
               <button
                 type="button"
                 key={n}
-                className={day.pain === n ? 'on' : ''}
+                className={day.pain === n ? styles.painOn : styles.painBtn}
                 onClick={() => setPain(day.pain === n ? null : n)}
               >
                 <strong>{n}</strong>
@@ -72,10 +74,10 @@ export function Journal() {
           </div>
         </div>
 
-        <div className="card">
+        <div className={ui.card}>
           <h3>Хода, хвилини</h3>
-          <p className="muted">Якщо ходив — скільки. Порожнє теж ок.</p>
-          <label className="field">
+          <p className={ui.muted}>Якщо ходив — скільки. Порожнє теж ок.</p>
+          <label className={styles.field}>
             <input
               type="number"
               min={0}
@@ -89,15 +91,15 @@ export function Journal() {
           </label>
         </div>
 
-        <div className="card">
+        <div className={ui.card}>
           <h3>Вага</h3>
           {weekWeight ? (
             <p>
               Цього тижня вже {weekWeight.kg} кг. Наступного разу — наступного тижня. Без оцінки характеру.
             </p>
           ) : (
-            <form onSubmit={onWeight} className="weight-form">
-              <label className="field">
+            <form onSubmit={onWeight} className={styles.weightForm}>
+              <label className={styles.field}>
                 <input
                   type="number"
                   step="0.1"
@@ -110,7 +112,7 @@ export function Journal() {
                 />
                 <span>кг</span>
               </label>
-              <button type="submit" className="btn">
+              <button type="submit" className={ui.btn}>
                 Записати раз
               </button>
             </form>
@@ -118,18 +120,18 @@ export function Journal() {
         </div>
       </div>
 
-      <div className="cards stack">
+      <div className={cx(ui.cards, ui.stack)}>
         <Sparkline values={painSeries} label="Біль · 14 днів" />
         <Sparkline values={weightSeries} label="Вага · тренд" unit=" кг" />
       </div>
 
-      {note ? <p className="cue stack-sm">{note}</p> : null}
+      {note ? <p className={cx(ui.cue, ui.stackSm)}>{note}</p> : null}
 
-      <div className="row-actions">
-        <button type="button" className="btn btn-ghost" onClick={download}>
+      <div className={ui.rowActions}>
+        <button type="button" className={ui.btnGhost} onClick={download}>
           Експорт зошита
         </button>
-        <button type="button" className="btn btn-ghost" onClick={() => fileRef.current?.click()}>
+        <button type="button" className={ui.btnGhost} onClick={() => fileRef.current?.click()}>
           Імпорт
         </button>
         <input

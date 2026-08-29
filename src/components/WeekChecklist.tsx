@@ -1,6 +1,8 @@
 import { useMemo, useState } from 'react'
 import { weeks } from '../data/weeks'
 import { clearChecks, loadChecks, saveChecks } from '../storage'
+import { ui } from '../ui'
+import styles from './WeekChecklist.module.css'
 
 export function WeekChecklist({ currentWeek = 1 }: { currentWeek?: number }) {
   const [open, setOpen] = useState(currentWeek || 1)
@@ -27,33 +29,33 @@ export function WeekChecklist({ currentWeek = 1 }: { currentWeek?: number }) {
 
   return (
     <div>
-      <div className="section-head">
-        <p className="kicker">Чекліст у цьому браузері</p>
+      <div className={ui.sectionHead}>
+        <p className={ui.kicker}>Чекліст у цьому браузері</p>
         <h2>Відмічай тижні. Ніхто не бачить, крім тебе.</h2>
-        <p className="lede">
+        <p className={ui.lede}>
           {done} з {total} кроків. {Math.round((done / total) * 100)}%.
         </p>
-        <div className="progress" aria-hidden="true">
+        <div className={ui.progress} aria-hidden="true">
           <span style={{ width: `${(done / total) * 100}%` }} />
         </div>
       </div>
-      <div className="weeks">
+      <div className={styles.list}>
         {weeks.map((week) => {
           const weekDone = week.checks.filter((c) => checks[c.id]).length
           const isOpen = open === week.n
           const isNow = currentWeek > 0 && week.n === currentWeek
           return (
-            <article className={`week${isNow ? ' current' : ''}`} key={week.n}>
+            <article className={isNow ? styles.current : styles.week} key={week.n}>
               <button
                 type="button"
-                className="week-head"
+                className={styles.head}
                 aria-expanded={isOpen}
                 onClick={() => setOpen(isOpen ? 0 : week.n)}
               >
-                <span className="week-n">{String(week.n).padStart(2, '0')}</span>
+                <span className={styles.num}>{String(week.n).padStart(2, '0')}</span>
                 <span>
                   <strong>{week.title}</strong>
-                  <span className="muted">
+                  <span className={ui.muted}>
                     {' '}
                     · {week.focus} · {weekDone}/{week.checks.length}
                     {isNow ? ' · зараз' : ''}
@@ -62,10 +64,10 @@ export function WeekChecklist({ currentWeek = 1 }: { currentWeek?: number }) {
                 <span aria-hidden="true">{isOpen ? '–' : '+'}</span>
               </button>
               {isOpen ? (
-                <div className="week-body">
-                  <p className="muted">{week.why}</p>
+                <div className={styles.body}>
+                  <p className={ui.muted}>{week.why}</p>
                   {week.checks.map((item) => (
-                    <label className="check" key={item.id}>
+                    <label className={ui.check} key={item.id}>
                       <input
                         type="checkbox"
                         checked={Boolean(checks[item.id])}
@@ -80,8 +82,8 @@ export function WeekChecklist({ currentWeek = 1 }: { currentWeek?: number }) {
           )
         })}
       </div>
-      <div className="row-actions">
-        <button className="btn btn-ghost" type="button" onClick={reset}>
+      <div className={ui.rowActions}>
+        <button className={ui.btnGhost} type="button" onClick={reset}>
           Скинути відмітки
         </button>
       </div>

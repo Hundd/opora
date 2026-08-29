@@ -1,26 +1,27 @@
 import type { Exercise } from '../data/exercises'
+import { ui } from '../ui'
 import { ExerciseFigure } from './ExerciseFigure'
 
 export function ExerciseCard({ exercise }: { exercise: Exercise }) {
   return (
-    <article className="exercise">
+    <article className={ui.exercise}>
       <ExerciseFigure id={exercise.id} />
-      <div className="tags">
-        <span className="tag">{exercise.time}</span>
+      <div className={ui.tags}>
+        <span className={ui.tag}>{exercise.time}</span>
         {exercise.tags.map((tag) => (
-          <span className="tag" key={tag}>
+          <span className={ui.tag} key={tag}>
             {tag}
           </span>
         ))}
       </div>
       <h3>{exercise.name}</h3>
-      <p className="muted">{exercise.why}</p>
+      <p className={ui.muted}>{exercise.why}</p>
       <ol>
         {exercise.steps.map((step) => (
           <li key={step}>{step}</li>
         ))}
       </ol>
-      <p className="cue">{exercise.cue}</p>
+      <p className={ui.cue}>{exercise.cue}</p>
     </article>
   )
 }

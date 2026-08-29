@@ -1,7 +1,9 @@
+import { ui } from '../ui'
+
 export function Logo() {
   return (
-    <span className="logo">
-      <svg className="logo-mark" viewBox="0 0 32 32" aria-hidden="true">
+    <span className={ui.logo}>
+      <svg className={ui.logoMark} viewBox="0 0 32 32" aria-hidden="true">
         <rect width="32" height="32" rx="8" fill="#2F4A3C" />
         <path
           d="M16 7.5c1.4 1.6 2.2 3.4 2.2 5.4 0 2-.8 3.8-2.2 5.4-1.4-1.6-2.2-3.4-2.2-5.4 0-2 .8-3.8 2.2-5.4Z"

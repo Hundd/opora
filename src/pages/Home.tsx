@@ -2,6 +2,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Disclaimer } from '../components/Disclaimer'
 import { baseSteps } from '../data/today'
 import { usePlan } from '../plan-context'
+import { cx, ui } from '../ui'
+import hero from './Home.module.css'
 
 const pillars = [
   {
@@ -43,31 +45,31 @@ export function Home() {
 
   return (
     <>
-      <section className="hero">
+      <section className={hero.hero}>
         <img src="/images/hero.jpg" alt="Батько веде за руку малу дитину ранковим парком" />
-        <div className="wrap hero-copy">
-          <p className="kicker">Для чоловіка 38 років</p>
-          <h1 className="display">Опора. Спина, їжа, сім’я — без надриву.</h1>
-          <p className="lede">
+        <div className={cx(ui.wrap, hero.copy)}>
+          <p className={cx(ui.kicker, hero.kicker)}>Для чоловіка 38 років</p>
+          <h1 className={cx(ui.display, hero.display)}>Опора. Спина, їжа, сім’я — без надриву.</h1>
+          <p className={cx(ui.lede, hero.lede)}>
             Тихий план, який можна жити поруч із дитиною. Не нова людина за місяць. Рівна спина,
             легша вага, спокійніший дім.
           </p>
-          <div className="row-actions">
+          <div className={cx(ui.rowActions, hero.row)}>
             {started ? (
               <>
-                <Link className="btn" to="/sogodni">
+                <Link className={ui.btn} to="/sogodni">
                   Сьогодні · {dayDone}/3
                 </Link>
-                <Link className="btn btn-ghost" to="/plan">
+                <Link className={cx(ui.btnGhost, hero.ghost)} to="/plan">
                   Тиждень {plan?.week}
                 </Link>
               </>
             ) : (
               <>
-                <button type="button" className="btn" onClick={startAndGo}>
+                <button type="button" className={ui.btn} onClick={startAndGo}>
                   Почати план
                 </button>
-                <Link className="btn btn-ghost" to="/sogodni">
+                <Link className={cx(ui.btnGhost, hero.ghost)} to="/sogodni">
                   Сьогодні 15 хвилин
                 </Link>
               </>
@@ -76,20 +78,20 @@ export function Home() {
         </div>
       </section>
 
-      <section className="section wrap">
-        <div className="section-head">
-          <p className="kicker">Навіщо цей гід</p>
+      <section className={cx(ui.section, ui.wrap)}>
+        <div className={ui.sectionHead}>
+          <p className={ui.kicker}>Навіщо цей гід</p>
           <h2>38 — не пізно і не «вже все зрозуміло».</h2>
-          <p className="lede">
+          <p className={ui.lede}>
             Є сколіоз і кіфоз, болить спина й шия, десь десять зайвих кілограмів. Є сила — десять
             підтягувань на турніку — і є ціна: шия після них. Є мала дитина. Треба не героїзм, а
             ритм, який не ламає вечір.
           </p>
         </div>
-        <div className="pillars">
+        <div className={ui.pillars}>
           {pillars.map((p) => (
-            <Link className="pillar" to={p.to} key={p.n}>
-              <span className="n">{p.n}</span>
+            <Link className={ui.pillar} to={p.to} key={p.n}>
+              <span className={ui.num}>{p.n}</span>
               <h3>{p.title}</h3>
               <p>{p.text}</p>
             </Link>
@@ -97,42 +99,42 @@ export function Home() {
         </div>
       </section>
 
-      <section className="section wrap">
-        <div className="split">
-          <div className="copy">
-            <p className="kicker">Повільне входження</p>
+      <section className={cx(ui.section, ui.wrap)}>
+        <div className={ui.split}>
+          <div className={ui.copy}>
+            <p className={ui.kicker}>Повільне входження</p>
             <h2>Якщо важко — план поганий, не ти.</h2>
-            <p className="lede">
+            <p className={ui.lede}>
               Перші тижні — це 12 хвилин на килимку і хода з дитиною. Сила, яка вже є, не
               викидається. Її просто перекладають із «до відказу» на якість. Впевненість з’являється
               не з кубиків на животі, а з обіцянок собі, які ти дотримуєш.
             </p>
-            <div className="row-actions">
-              <Link className="btn" to="/hrebets">
+            <div className={ui.rowActions}>
+              <Link className={ui.btn} to="/hrebets">
                 Спочатку спина
               </Link>
             </div>
           </div>
-          <div className="photo">
+          <div className={ui.photo}>
             <img src="/images/morning.jpg" alt="Чоловік робить м’яку розминку на килимку вдома" />
           </div>
         </div>
       </section>
 
-      <section className="section wrap">
-        <div className="split reverse">
-          <div className="photo">
+      <section className={cx(ui.section, ui.wrap)}>
+        <div className={ui.splitReverse}>
+          <div className={ui.photo}>
             <img src="/images/family.jpg" alt="Батько грає з малою дитиною на траві" />
           </div>
-          <div className="copy">
-            <p className="kicker">Дім важливіший за зал</p>
+          <div className={ui.copy}>
+            <p className={ui.kicker}>Дім важливіший за зал</p>
             <h2>Тренування, яке відбирає сім’ю, помре само.</h2>
-            <p className="lede">
+            <p className={ui.lede}>
               Вечірня хода, гра на підлозі, одна тарілка на всіх. Дитина не заважає плану — вона
               його частина. Коли батько спокійніший і менш злий від болю, виграють усі.
             </p>
-            <div className="row-actions">
-              <Link className="btn btn-ghost" to="/simya">
+            <div className={ui.rowActions}>
+              <Link className={ui.btnGhost} to="/simya">
                 Як укласти це в день
               </Link>
             </div>
@@ -140,9 +142,9 @@ export function Home() {
         </div>
       </section>
 
-      <section className="section wrap">
-        <div className="today">
-          <p className="kicker">
+      <section className={cx(ui.section, ui.wrap)}>
+        <div className={ui.panel}>
+          <p className={ui.kicker}>
             {started
               ? `Тиждень ${plan?.week} · день ${dayInWeek} · ${weekMeta?.focus}`
               : 'Сьогодні'}
@@ -157,26 +159,26 @@ export function Home() {
           <ol>
             {baseSteps.map((step) => (
               <li key={step.n}>
-                <span className="step">{step.n}</span>
+                <span className={ui.step}>{step.n}</span>
                 <span>
                   <strong>{step.title}.</strong> {step.text}
                 </span>
               </li>
             ))}
           </ol>
-          <div className="row-actions">
-            <Link className="btn" to="/sogodni">
+          <div className={ui.rowActions}>
+            <Link className={ui.btn} to="/sogodni">
               Відкрити сьогодні
             </Link>
-            <Link className="btn btn-ghost" to="/rukh">
+            <Link className={ui.btnGhost} to="/rukh">
               Усі вправи
             </Link>
           </div>
         </div>
       </section>
 
-      <section className="section wrap">
-        <dl className="facts">
+      <section className={cx(ui.section, ui.wrap)}>
+        <dl className={ui.facts}>
           <h2>Що вважати успіхом через три місяці</h2>
           <div>
             <dt>Спина</dt>
@@ -197,7 +199,7 @@ export function Home() {
         </dl>
       </section>
 
-      <section className="section wrap">
+      <section className={cx(ui.section, ui.wrap)}>
         <Disclaimer />
       </section>
     </>

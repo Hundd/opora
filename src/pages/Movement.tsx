@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { ExerciseCard } from '../components/ExerciseCard'
 import { exercises, pullupProtocol } from '../data/exercises'
+import { cx, ui } from '../ui'
 
 const levels = [
   {
@@ -26,49 +27,49 @@ const levels = [
 export function Movement() {
   return (
     <>
-      <section className="page-hero wrap">
+      <section className={cx(ui.pageHero, ui.wrap)}>
         <div>
-          <p className="kicker">Рух</p>
-          <h1 className="display">Сила є. Треба не ламати шию.</h1>
-          <p className="lede">
+          <p className={ui.kicker}>Рух</p>
+          <h1 className={ui.display}>Сила є. Треба не ламати шию.</h1>
+          <p className={ui.lede}>
             Десять підтягувань — це вже капітал. План не відбирає турнік. Він відбирає звичку робити
             їх «на характері». Повільне входження: коротко, часто, чисто.
           </p>
         </div>
-        <div className="photo">
+        <div className={ui.photo}>
           <img src="/images/morning.jpg" alt="Коротка домашня розминка на килимку" />
         </div>
       </section>
 
-      <section className="section wrap">
-        <div className="section-head">
-          <p className="kicker">Три рівні</p>
+      <section className={cx(ui.section, ui.wrap)}>
+        <div className={ui.sectionHead}>
+          <p className={ui.kicker}>Три рівні</p>
           <h2>Кожен наступний лише тоді, коли попередній не болить.</h2>
         </div>
-        <div className="levels">
+        <div className={ui.levels}>
           {levels.map((level) => (
-            <article className="level" key={level.n}>
-              <p className="kicker">Рівень {level.n}</p>
+            <article className={ui.level} key={level.n}>
+              <p className={ui.kicker}>Рівень {level.n}</p>
               <h3>{level.title}</h3>
-              <p className="muted">{level.weeks}. {level.text}</p>
+              <p className={ui.muted}>{level.weeks}. {level.text}</p>
             </article>
           ))}
         </div>
       </section>
 
-      <section className="section wrap">
-        <div className="section-head">
-          <p className="kicker">Турнік</p>
+      <section className={cx(ui.section, ui.wrap)}>
+        <div className={ui.sectionHead}>
+          <p className={ui.kicker}>Турнік</p>
           <h2>Протокол замість «зроби десять».</h2>
-          <p className="lede">
+          <p className={ui.lede}>
             Шия болить, коли плечі знизуються, голова задирається, а останні повтори вже не про
             спину. Двічі на тиждень, не щодня. Стоп за два повтори до відказу.
           </p>
         </div>
-        <div className="protocol">
+        <div className={ui.protocol}>
           {pullupProtocol.map((step) => (
-            <article className="protocol-step" key={step.n}>
-              <div className="n">{step.n}</div>
+            <article className={ui.protocolStep} key={step.n}>
+              <div className={ui.protocolNum}>{step.n}</div>
               <h3>{step.title}</h3>
               <p>{step.detail}</p>
             </article>
@@ -76,27 +77,27 @@ export function Movement() {
         </div>
       </section>
 
-      <section className="section wrap">
-        <div className="today">
-          <p className="kicker">Кардіо</p>
+      <section className={cx(ui.section, ui.wrap)}>
+        <div className={ui.panel}>
+          <p className={ui.kicker}>Кардіо</p>
           <h2>Хода. Не біг, не «жиросжигание».</h2>
-          <p className="lede">
+          <p className={ui.lede}>
             20–30 хвилин рівним кроком. З візком, за руку, навколо кварталу після вечері. Це і
             мінус калорії, і розвантаження спини, і час із сім’єю. Якщо є сили — додай п’ять хвилин,
             не швидкість.
           </p>
-          <Link className="btn btn-ghost" to="/simya">
+          <Link className={ui.btnGhost} to="/simya">
             Як ходити з дитиною
           </Link>
         </div>
       </section>
 
-      <section className="section wrap">
-        <div className="section-head">
-          <p className="kicker">Бібліотека</p>
+      <section className={cx(ui.section, ui.wrap)}>
+        <div className={ui.sectionHead}>
+          <p className={ui.kicker}>Бібліотека</p>
           <h2>Усі рухи плану. Коротко, з підказкою.</h2>
         </div>
-        <div className="exercise-grid">
+        <div className={ui.exerciseGrid}>
           {exercises.map((exercise) => (
             <ExerciseCard key={exercise.id} exercise={exercise} />
           ))}
