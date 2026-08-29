@@ -1,17 +1,20 @@
-import { Link, useNavigate } from 'react-router-dom'
+'use client'
+
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { WeekChecklist } from '../components/WeekChecklist'
 import { usePlan } from '../plan-context'
 import { formatUkDate } from '../storage'
 import { cx, ui } from '../ui'
 
 export function Plan() {
-  const navigate = useNavigate()
+  const router = useRouter()
   const { plan, weekMeta, dayInWeek, start, repeat, resetPlan } = usePlan()
   const started = Boolean(plan && weekMeta)
 
   function startAndGo() {
     start()
-    navigate('/sogodni')
+    router.push('/sogodni')
   }
 
   return (
@@ -34,7 +37,7 @@ export function Plan() {
               <button type="button" className={ui.btn} onClick={startAndGo}>
                 Почати план сьогодні
               </button>
-              <Link className={ui.btnGhost} to="/sogodni">
+              <Link className={ui.btnGhost} href="/sogodni">
                 Спочатку сьогодні
               </Link>
             </div>
@@ -52,7 +55,7 @@ export function Plan() {
             <h2>{weekMeta?.title}. {weekMeta?.focus}.</h2>
             <p className={ui.lede}>{weekMeta?.why}</p>
             <div className={ui.rowActions}>
-              <Link className={ui.btn} to="/sogodni">
+              <Link className={ui.btn} href="/sogodni">
                 Відкрити сьогодні
               </Link>
               <button type="button" className={ui.btnGhost} onClick={repeat}>
@@ -110,10 +113,10 @@ export function Plan() {
             вважати день виконаним.
           </p>
           <div className={ui.rowActions}>
-            <Link className={ui.btn} to="/sogodni">
+            <Link className={ui.btn} href="/sogodni">
               Сьогодні
             </Link>
-            <Link className={ui.btnGhost} to="/rukh">
+            <Link className={ui.btnGhost} href="/rukh">
               Відкрити вправи
             </Link>
           </div>

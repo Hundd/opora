@@ -1,4 +1,6 @@
-import { useMemo, useState } from 'react'
+'use client'
+
+import { useEffect, useMemo, useState } from 'react'
 import { weeks } from '../data/weeks'
 import { clearChecks, loadChecks, saveChecks } from '../storage'
 import { ui } from '../ui'
@@ -6,7 +8,11 @@ import styles from './WeekChecklist.module.css'
 
 export function WeekChecklist({ currentWeek = 1 }: { currentWeek?: number }) {
   const [open, setOpen] = useState(currentWeek || 1)
-  const [checks, setChecks] = useState<Record<string, boolean>>(loadChecks)
+  const [checks, setChecks] = useState<Record<string, boolean>>({})
+
+  useEffect(() => {
+    setChecks(loadChecks())
+  }, [])
 
   const total = weeks.reduce((n, week) => n + week.checks.length, 0)
   const done = useMemo(

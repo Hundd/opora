@@ -1,4 +1,6 @@
-import { useRef, useState, type FormEvent } from 'react'
+'use client'
+
+import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { usePlan } from '../plan-context'
 import { exportBackup, getDay, importBackup, lastDays } from '../storage'
 import { cx, ui } from '../ui'
@@ -13,8 +15,12 @@ export function Journal() {
   const [kg, setKg] = useState('')
   const [note, setNote] = useState<string | null>(null)
 
-  const painSeries = lastDays(14).map((d) => getDay(d).pain)
+  const [painSeries, setPainSeries] = useState<(number | null)[]>(() => Array(14).fill(null))
   const weightSeries = weights.map((w) => w.kg)
+
+  useEffect(() => {
+    setPainSeries(lastDays(14).map((d) => getDay(d).pain))
+  }, [day])
 
   function onWeight(e: FormEvent) {
     e.preventDefault()

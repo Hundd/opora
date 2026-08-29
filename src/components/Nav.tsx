@@ -1,12 +1,22 @@
+'use client'
+
 import { useEffect, useRef, useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { navLinks } from '../data/nav'
 import { cx, ui } from '../ui'
 import { Logo } from './Logo'
 import styles from './Nav.module.css'
 
+function samePath(pathname: string, href: string) {
+  const a = pathname.replace(/\/$/, '') || '/'
+  const b = href.replace(/\/$/, '') || '/'
+  return a === b
+}
+
 export function Nav() {
   const [open, setOpen] = useState(false)
+  const pathname = usePathname()
   const btnRef = useRef<HTMLButtonElement>(null)
   const firstRef = useRef<HTMLAnchorElement>(null)
 
@@ -26,22 +36,22 @@ export function Nav() {
   return (
     <header className={cx(styles.root, open && styles.open)}>
       <div className={cx(ui.wrap, styles.inner)}>
-        <NavLink to="/" onClick={() => setOpen(false)} aria-label="На головну">
+        <Link href="/" onClick={() => setOpen(false)} aria-label="На головну">
           <Logo />
-        </NavLink>
+        </Link>
         <nav className={styles.links} id="site-nav" aria-label="Основне меню">
           {navLinks.map((link, i) => (
-            <NavLink
+            <Link
               key={link.to}
-              to={link.to}
+              href={link.to}
               ref={i === 0 ? firstRef : undefined}
-              className={({ isActive }) => cx(styles.link, isActive && styles.active)}
+              className={cx(styles.link, samePath(pathname, link.to) && styles.active)}
               onClick={() => setOpen(false)}
             >
               {link.label}
-            </NavLink>
+            </Link>
           ))}
-          <Link to="/sogodni" className={cx(ui.btn, styles.cta)} onClick={() => setOpen(false)}>
+          <Link href="/sogodni" className={cx(ui.btn, styles.cta)} onClick={() => setOpen(false)}>
             15 хвилин
           </Link>
         </nav>

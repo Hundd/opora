@@ -4,6 +4,10 @@ function handler(event) {
   if (uri.includes('.')) {
     return request
   }
-  request.uri = '/index.html'
+  if (uri.endsWith('/')) {
+    request.uri = uri + 'index.html'
+  } else {
+    request.uri = uri + '/index.html'
+  }
   return request
 }

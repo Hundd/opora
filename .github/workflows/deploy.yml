@@ -50,15 +50,45 @@ jobs:
 
       - name: Sync to S3
         run: |
-          aws s3 sync dist s3://opora.polchaninov.click --delete \
-            --exclude index.html \
+          aws s3 sync out s3://opora.polchaninov.click --delete \
+            --exclude "*.html" \
+            --exclude "sw.js" \
+            --exclude "*.txt" \
+            --exclude "*.webmanifest" \
             --cache-control "public,max-age=31536000,immutable"
-          aws s3 cp dist/index.html s3://opora.polchaninov.click/index.html \
+          aws s3 sync out s3://opora.polchaninov.click \
+            --exclude "*" \
+            --include "*.html" \
             --cache-control "public,max-age=0,must-revalidate" \
             --content-type "text/html; charset=utf-8"
-          aws s3 cp dist/index.html s3://opora.polchaninov.click/404.html \
-            --cache-control "public,max-age=0,must-revalidate" \
-            --content-type "text/html; charset=utf-8"
+          aws s3 sync out s3://opora.polchaninov.click \
+            --exclude "*" \
+            --include "sw.js" \
+            --include "*.txt" \
+            --include "*.webmanifest" \
+            --cache-control "public,max-age=0,must-revalidate"
+
+      - name: Publish CloudFront rewrite
+        continue-on-error: true
+        run: |
+          DIST=E136E23RX990B9
+          ARN=$(aws cloudfront get-distribution-config --id "$DIST" \
+            --query "DistributionConfig.DefaultCacheBehavior.FunctionAssociations.Items[?EventType=='viewer-request'].FunctionARN | [0]" \
+            --output text)
+          if [ -z "$ARN" ] || [ "$ARN" = "None" ]; then
+            echo "No viewer-request CloudFront function on $DIST"
+            exit 0
+          fi
+          NAME="${ARN##*/}"
+          DESC=$(aws cloudfront describe-function --name "$NAME")
+          ETAG=$(printf '%s' "$DESC" | python3 -c "import sys,json; print(json.load(sys.stdin)['ETag'])")
+          RUNTIME=$(printf '%s' "$DESC" | python3 -c "import sys,json; print(json.load(sys.stdin)['FunctionSummary']['FunctionConfig']['Runtime'])")
+          COMMENT=$(printf '%s' "$DESC" | python3 -c "import sys,json; print(json.load(sys.stdin)['FunctionSummary']['FunctionConfig'].get('Comment') or 'static folder index')")
+          UPDATED=$(aws cloudfront update-function --name "$NAME" --if-match "$ETAG" \
+            --function-config "Comment=$COMMENT,Runtime=$RUNTIME" \
+            --function-code fileb://infra/cloudfront-spa-function.js)
+          NEW_ETAG=$(printf '%s' "$UPDATED" | python3 -c "import sys,json; print(json.load(sys.stdin)['ETag'])")
+          aws cloudfront publish-function --name "$NAME" --if-match "$NEW_ETAG"
 
       - name: Invalidate CloudFront cache
         run: aws cloudfront create-invalidation --distribution-id E136E23RX990B9 --paths "/*"

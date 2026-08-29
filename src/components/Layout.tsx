@@ -1,25 +1,22 @@
-import { Link, Outlet } from 'react-router-dom'
+import type { ReactNode } from 'react'
+import Link from 'next/link'
 import { cx, ui } from '../ui'
 import { Disclaimer } from './Disclaimer'
 import { Logo } from './Logo'
 import { Nav } from './Nav'
-import { PageMeta } from './PageMeta'
 import styles from './Layout.module.css'
 
-export function Layout() {
+export function Layout({ children }: { children: ReactNode }) {
   return (
     <>
-      <PageMeta />
       <a className={styles.skip} href="#main">
         До змісту
       </a>
       <Nav />
-      <main id="main">
-        <Outlet />
-      </main>
+      <main id="main">{children}</main>
       <footer className={cx(styles.footer, ui.wrap)}>
         <div className={styles.top}>
-          <Link to="/">
+          <Link href="/">
             <Logo />
           </Link>
           <span>38 років. Спина, тарілка, дитина.</span>
@@ -27,7 +24,7 @@ export function Layout() {
         <p className={styles.hint}>
           На телефоні: Поділитися → На екран «Домівка». Після першого відкриття працює без мережі.
           {' · '}
-          <Link to="/dlya-nyeyi">Для партнерки</Link>
+          <Link href="/dlya-nyeyi">Для партнерки</Link>
         </p>
         <Disclaimer />
       </footer>

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 import { partnerPage, partnerLines } from '../data/family'
 import { cx, ui } from '../ui'
 
@@ -62,10 +62,10 @@ export function Partner() {
           ))}
         </div>
         <div className={ui.rowActions}>
-          <Link className={ui.btn} to="/sogodni">
+          <Link className={ui.btn} href="/sogodni">
             Як виглядає сьогодні
           </Link>
-          <Link className={ui.btnGhost} to="/simya">
+          <Link className={ui.btnGhost} href="/simya">
             Сторінка сім’ї
           </Link>
         </div>

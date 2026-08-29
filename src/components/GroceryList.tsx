@@ -1,12 +1,18 @@
-import { useState } from 'react'
+'use client'
+
+import { useEffect, useState } from 'react'
 import { groceries } from '../data/groceries'
 import { loadGroceries, saveGroceries } from '../storage'
 import { cx, ui } from '../ui'
 import styles from './GroceryList.module.css'
 
 export function GroceryList() {
-  const [checks, setChecks] = useState<Record<string, boolean>>(loadGroceries)
+  const [checks, setChecks] = useState<Record<string, boolean>>({})
   const done = groceries.filter((item) => checks[item.id]).length
+
+  useEffect(() => {
+    setChecks(loadGroceries())
+  }, [])
 
   function toggle(id: string) {
     setChecks((prev) => {

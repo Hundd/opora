@@ -1,4 +1,14 @@
-import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from 'react'
+'use client'
+
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  type ReactNode,
+} from 'react'
 import { weeks } from './data/weeks'
 import {
   type DayTasks,
@@ -7,6 +17,7 @@ import {
   addWeight as addWeightState,
   clearPlan,
   dayNumber,
+  emptyDay,
   getDay,
   loadWeights,
   patchDay,
@@ -16,7 +27,7 @@ import {
   startPlan as startPlanState,
   tickPlan,
   todayISO,
-  weightThisWeek,
+  weekStart,
 } from './storage'
 
 type BoolTask = 'base' | 'walk' | 'family' | 'desk'
@@ -49,10 +60,18 @@ function readPlan(): PlanState | null {
 }
 
 export function PlanProvider({ children }: { children: ReactNode }) {
-  const today = todayISO()
-  const [plan, setPlan] = useState<PlanState | null>(readPlan)
-  const [day, setDay] = useState<DayTasks>(() => getDay(today))
-  const [weights, setWeights] = useState<WeightEntry[]>(loadWeights)
+  const [today, setToday] = useState('')
+  const [plan, setPlan] = useState<PlanState | null>(null)
+  const [day, setDay] = useState<DayTasks>(emptyDay)
+  const [weights, setWeights] = useState<WeightEntry[]>([])
+
+  useEffect(() => {
+    const current = todayISO()
+    setToday(current)
+    setPlan(readPlan())
+    setDay(getDay(current))
+    setWeights(loadWeights())
+  }, [])
 
   const start = useCallback(() => {
     const next = startPlanState()
@@ -98,8 +117,12 @@ export function PlanProvider({ children }: { children: ReactNode }) {
     return weeks[plan.week - 1] ?? weeks[0]
   }, [plan])
 
-  const dayInWeek = plan ? dayNumber(plan, today) : 1
-  const weekWeight = weightThisWeek(today)
+  const dayInWeek = plan && today ? dayNumber(plan, today) : 1
+  const weekWeight = useMemo(() => {
+    if (!today) return undefined
+    const start = weekStart(today)
+    return weights.find((w) => weekStart(w.date) === start)
+  }, [today, weights])
 
   const value = useMemo(
     () => ({

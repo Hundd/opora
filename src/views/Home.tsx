@@ -1,4 +1,7 @@
-import { Link, useNavigate } from 'react-router-dom'
+'use client'
+
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { Disclaimer } from '../components/Disclaimer'
 import { baseSteps } from '../data/today'
 import { usePlan } from '../plan-context'
@@ -33,14 +36,14 @@ const pillars = [
 ]
 
 export function Home() {
-  const navigate = useNavigate()
+  const router = useRouter()
   const { plan, weekMeta, start, day, dayInWeek } = usePlan()
   const started = Boolean(plan && weekMeta)
   const dayDone = started ? [day.base, day.walk, day.family].filter(Boolean).length : 0
 
   function startAndGo() {
     start()
-    navigate('/sogodni')
+    router.push('/sogodni')
   }
 
   return (
@@ -57,10 +60,10 @@ export function Home() {
           <div className={cx(ui.rowActions, hero.row)}>
             {started ? (
               <>
-                <Link className={ui.btn} to="/sogodni">
+                <Link className={ui.btn} href="/sogodni">
                   Сьогодні · {dayDone}/3
                 </Link>
-                <Link className={cx(ui.btnGhost, hero.ghost)} to="/plan">
+                <Link className={cx(ui.btnGhost, hero.ghost)} href="/plan">
                   Тиждень {plan?.week}
                 </Link>
               </>
@@ -69,7 +72,7 @@ export function Home() {
                 <button type="button" className={ui.btn} onClick={startAndGo}>
                   Почати план
                 </button>
-                <Link className={cx(ui.btnGhost, hero.ghost)} to="/sogodni">
+                <Link className={cx(ui.btnGhost, hero.ghost)} href="/sogodni">
                   Сьогодні 15 хвилин
                 </Link>
               </>
@@ -90,7 +93,7 @@ export function Home() {
         </div>
         <div className={ui.pillars}>
           {pillars.map((p) => (
-            <Link className={ui.pillar} to={p.to} key={p.n}>
+            <Link className={ui.pillar} href={p.to} key={p.n}>
               <span className={ui.num}>{p.n}</span>
               <h3>{p.title}</h3>
               <p>{p.text}</p>
@@ -110,7 +113,7 @@ export function Home() {
               не з кубиків на животі, а з обіцянок собі, які ти дотримуєш.
             </p>
             <div className={ui.rowActions}>
-              <Link className={ui.btn} to="/hrebets">
+              <Link className={ui.btn} href="/hrebets">
                 Спочатку спина
               </Link>
             </div>
@@ -134,7 +137,7 @@ export function Home() {
               його частина. Коли батько спокійніший і менш злий від болю, виграють усі.
             </p>
             <div className={ui.rowActions}>
-              <Link className={ui.btnGhost} to="/simya">
+              <Link className={ui.btnGhost} href="/simya">
                 Як укласти це в день
               </Link>
             </div>
@@ -167,10 +170,10 @@ export function Home() {
             ))}
           </ol>
           <div className={ui.rowActions}>
-            <Link className={ui.btn} to="/sogodni">
+            <Link className={ui.btn} href="/sogodni">
               Відкрити сьогодні
             </Link>
-            <Link className={ui.btnGhost} to="/rukh">
+            <Link className={ui.btnGhost} href="/rukh">
               Усі вправи
             </Link>
           </div>

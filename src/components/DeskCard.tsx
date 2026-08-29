@@ -1,3 +1,5 @@
+'use client'
+
 import { deskSteps } from '../data/desk'
 import { usePlan } from '../plan-context'
 import { ui } from '../ui'

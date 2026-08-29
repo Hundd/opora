@@ -1,4 +1,6 @@
-import { Link } from 'react-router-dom'
+'use client'
+
+import Link from 'next/link'
 import { DeskCard } from '../components/DeskCard'
 import { Journal } from '../components/Journal'
 import { dailyTasks, baseSteps } from '../data/today'
@@ -24,7 +26,7 @@ export function Today() {
               <button type="button" className={ui.btn} onClick={start}>
                 Почати план сьогодні
               </button>
-              <Link className={ui.btnGhost} to="/rukh">
+              <Link className={ui.btnGhost} href="/rukh">
                 Спочатку вправи
               </Link>
             </div>
@@ -126,7 +128,7 @@ export function Today() {
               </li>
             ))}
           </ol>
-          <Link className={ui.btn} to="/rukh">
+          <Link className={ui.btn} href="/rukh">
             Усі вправи
           </Link>
         </div>
@@ -140,7 +142,7 @@ export function Today() {
               {weekMeta.checks.length} кроки в чеклісті плану. Відмітки тижня — окремо від сьогоднішніх трьох.
             </p>
             <div className={ui.rowActions}>
-              <Link className={ui.btnGhost} to="/plan">
+              <Link className={ui.btnGhost} href="/plan">
                 Відкрити план
               </Link>
             </div>

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 import {
   confidenceNotes,
   dayRhythm,
@@ -127,10 +127,10 @@ export function Family() {
           ))}
         </div>
         <div className={ui.rowActions}>
-          <Link className={ui.btn} to="/plan">
+          <Link className={ui.btn} href="/plan">
             Зібрати це в 12 тижнів
           </Link>
-          <Link className={ui.btnGhost} to="/dlya-nyeyi">
+          <Link className={ui.btnGhost} href="/dlya-nyeyi">
             Коротко для партнерки
           </Link>
         </div>

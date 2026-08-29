@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 import { DeskCard } from '../components/DeskCard'
 import { ExerciseCard } from '../components/ExerciseCard'
 import { exercises } from '../data/exercises'
@@ -124,7 +124,7 @@ export function Spine() {
             <li>Біг і стрибки як перше кардіо — для хребта зараз корисніша хода.</li>
           </ul>
           <div className={ui.rowActions}>
-            <Link className={ui.btn} to="/rukh">
+            <Link className={ui.btn} href="/rukh">
               Безпечний протокол турніка
             </Link>
           </div>

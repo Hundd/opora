@@ -62,6 +62,7 @@ export function addDays(iso: string, n: number): string {
 
 function readJson<T>(key: string, fallback: T): T {
   try {
+    if (typeof localStorage === 'undefined') return fallback
     const raw = localStorage.getItem(key)
     return raw ? (JSON.parse(raw) as T) : fallback
   } catch {

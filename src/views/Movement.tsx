@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 import { ExerciseCard } from '../components/ExerciseCard'
 import { exercises, pullupProtocol } from '../data/exercises'
 import { cx, ui } from '../ui'
@@ -86,7 +86,7 @@ export function Movement() {
             мінус калорії, і розвантаження спини, і час із сім’єю. Якщо є сили — додай п’ять хвилин,
             не швидкість.
           </p>
-          <Link className={ui.btnGhost} to="/simya">
+          <Link className={ui.btnGhost} href="/simya">
             Як ходити з дитиною
           </Link>
         </div>

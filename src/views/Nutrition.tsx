@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 import { GroceryList } from '../components/GroceryList'
 import { mealDays, plateParts, rules, weightNotes } from '../data/meals'
 import { cx, ui } from '../ui'
@@ -105,7 +105,7 @@ export function Nutrition() {
             <li>Прибирати крупу повністю. Без палива ввечері з’являється холодильник.</li>
           </ul>
           <div className={ui.rowActions}>
-            <Link className={ui.btn} to="/plan">
+            <Link className={ui.btn} href="/plan">
               Вписати їжу в 12 тижнів
             </Link>
           </div>
