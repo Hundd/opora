@@ -4,6 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "packageManager": "pnpm@11.18.0",
+  "pnpm": {
+    "minimumReleaseAgeExclude": ["happy-dom"]
+  },
   "engines": {
     "node": ">=22"
   },
