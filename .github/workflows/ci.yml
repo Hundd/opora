@@ -20,18 +20,9 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: 22
-          cache: npm
 
       - name: Install dependencies
-        run: |
-          n=0
-          until [ "$n" -ge 3 ]; do
-            npm ci --no-audit --no-fund && exit 0
-            n=$((n + 1))
-            echo "npm ci failed ($n), retrying..."
-            sleep 8
-          done
-          exit 1
+        run: npm ci --no-audit --no-fund --ignore-scripts
 
       - name: Lint
         run: npm run lint
