@@ -31,8 +31,8 @@ importers:
         specifier: ^6.1.0
         version: 6.1.1(vite@8.2.2(@types/node@24.13.3)(terser@5.51.2))
       happy-dom:
-        specifier: ^20.11.13
-        version: 20.11.13
+        specifier: ^20.11.2
+        version: 20.11.2
       oxlint:
         specifier: ^1.79.0
         version: 1.80.0
@@ -47,7 +47,7 @@ importers:
         version: 1.3.0(vite@8.2.2(@types/node@24.13.3)(terser@5.51.2))(workbox-build@7.4.1)(workbox-window@7.4.1)
       vitest:
         specifier: ^4.1.11
-        version: 4.1.11(@types/node@24.13.3)(happy-dom@20.11.13)(vite@8.2.2(@types/node@24.13.3)(terser@5.51.2))
+        version: 4.1.11(@types/node@24.13.3)(happy-dom@20.11.2)(vite@8.2.2(@types/node@24.13.3)(terser@5.51.2))
 
 packages:
 
@@ -1406,8 +1406,8 @@ packages:
   graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
 
-  happy-dom@20.11.13:
-    resolution: {integrity: sha512-UUGd67JqTs0BaH4UbTaq8jCxdtNoYjvbmZM5iwgQKK60tLad0p2uPc48WcVTj1MxlIP43z48WahJcViKbxnprQ==}
+  happy-dom@20.11.2:
+    resolution: {integrity: sha512-7MB+bJLkxu3SowAfBJbjW+c55kNz5tkR45gu2qzrxznezhLeN5YIlJbwUgSzlGc+qWoZ8Ykg71H5ezz69xixrw==}
     engines: {node: '>=20.0.0'}
 
   has-bigints@1.1.0:
@@ -3652,7 +3652,7 @@ snapshots:
 
   graceful-fs@4.2.11: {}
 
-  happy-dom@20.11.13:
+  happy-dom@20.11.2:
     dependencies:
       '@types/node': 24.13.3
       '@types/whatwg-mimetype': 3.0.2
@@ -4393,7 +4393,7 @@ snapshots:
       fsevents: 2.3.3
       terser: 5.51.2
 
-  vitest@4.1.11(@types/node@24.13.3)(happy-dom@20.11.13)(vite@8.2.2(@types/node@24.13.3)(terser@5.51.2)):
+  vitest@4.1.11(@types/node@24.13.3)(happy-dom@20.11.2)(vite@8.2.2(@types/node@24.13.3)(terser@5.51.2)):
     dependencies:
       '@vitest/expect': 4.1.11
       '@vitest/mocker': 4.1.11(vite@8.2.2(@types/node@24.13.3)(terser@5.51.2))
@@ -4417,7 +4417,7 @@ snapshots:
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 24.13.3
-      happy-dom: 20.11.13
+      happy-dom: 20.11.2
     transitivePeerDependencies:
       - msw
 

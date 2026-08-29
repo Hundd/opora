@@ -5,7 +5,9 @@
   "type": "module",
   "packageManager": "pnpm@11.18.0",
   "pnpm": {
-    "minimumReleaseAgeExclude": ["happy-dom"]
+    "minimumReleaseAgeExclude": [
+      "happy-dom"
+    ]
   },
   "engines": {
     "node": ">=22"
@@ -27,7 +29,7 @@
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
     "@vitejs/plugin-react": "^6.1.0",
-    "happy-dom": "^20.11.13",
+    "happy-dom": "^20.11.2",
     "oxlint": "^1.79.0",
     "typescript": "~6.0.2",
     "vite": "^8.2.2",
